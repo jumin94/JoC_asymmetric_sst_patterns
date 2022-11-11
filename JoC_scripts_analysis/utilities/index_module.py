@@ -23,13 +23,13 @@ class my_dictionary(dict):
 
 def cargo_todo(ruta,scenarios,models,var):
     dic = {}
-    dic['historical'] = {}
-    dic['ssp585'] = {}
+    dic[scenarios[0]] = {}
+    dic[scenarios[1]] = {}
     for scenario in dic.keys():
         listOfFiles = os.listdir(ruta+'/'+scenario+'/'+var)
         for model in models:
             dic[scenario][model] = {}
-            if scenario == 'ssp585':
+            if scenario == scenarios[1]:
                 periods = ['2070-2099']
             else:
                 periods = ['1940-1969']
@@ -219,3 +219,17 @@ def sst_index(modelos,box,SST):
         print(index)
         index_out = np.append(index_out,index)
     return index_out
+
+def sst_index_asym(modelos,box,SST):
+    index_out = np.array([])
+    for model in modelos:
+        print(model)
+        asym = components(model,SST)[2]
+        if model == 'IPSL-CM6A-LR':
+            index = asym.sel(lat=slice(box[0],box[1])).sel(lon=slice(box[2],box[3])).mean(dim='y').mean(dim='x').mean(dim='lat').mean(dim='lon')
+        else:
+            index = asym.sel(lat=slice(box[0],box[1])).sel(lon=slice(box[2],box[3])).mean(dim='lat').mean(dim='lon')
+        print(index)
+        index_out = np.append(index_out,index)
+    return index_out
+

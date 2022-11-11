@@ -69,13 +69,13 @@ def cargo_todo(scenarios,models,ruta,var):
     os.chdir(ruta)
     os.getcwd()
     dic = {}
-    dic['historical'] = {}
-    dic['ssp585'] = {}
+    dic[scenarios[0]] = {}
+    dic[scenarios[1]] = {}
     for scenario in dic.keys():
         listOfFiles = os.listdir(ruta+'/'+scenario+'/'+var)
         for model in models:
             dic[scenario][model] = {}
-            if scenario == 'ssp585':
+            if scenario == scenarios[1]:
                 periods = ['2070-2099']
             else:
                 periods = ['1940-1969']
@@ -92,13 +92,13 @@ def cargo_todo_crudos(scenarios,models,ruta,var):
     os.chdir(ruta)
     os.getcwd()
     dic = {}
-    dic['historical'] = {}
-    dic['ssp585'] = {}
+    dic[scenarios[0]] = {}
+    dic[scenarios[1]] = {}
     for scenario in dic.keys():
         listOfFiles = os.listdir(ruta+'/'+scenario+'/'+var)
         for model in models:
             dic[scenario][model] = {}
-            if scenario == 'ssp585':
+            if scenario == scenarios[1]:
                 periods = ['201501-209912']
             else:
                 periods = ['195001-201412']

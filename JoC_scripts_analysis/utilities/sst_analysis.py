@@ -16,7 +16,7 @@ import matplotlib as mpl
 mpl.rcParams['hatch.linewidth'] = 0.5  # previous pdf hatch linewidth
 import cartopy.util as cutil
 import logging
-import funciones
+import utilities.funciones
 import os, fnmatch
 
 #Defino y genero diccionario con datos
