@@ -1,0 +1,1 @@
+# JoC_asymmetric_sst_patterns
