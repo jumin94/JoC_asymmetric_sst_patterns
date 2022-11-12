@@ -41,8 +41,10 @@ class across_models(object):
             elif var == 'ua':
                 h = hist.ua
                 h.attrs = hist.ua.attrs
+                h = h.isel(plev=0)
                 rcp = rcp585.ua
                 rcp.attrs = rcp585.ua.attrs
+                rcp = rcp.isel(plev=0)
             elif var == 'va':
                 h = hist.va
                 h.attrs = hist.va.attrs
@@ -184,7 +186,7 @@ class across_models(object):
         pr = self.psl_change
         for i in range(len(lat)):
             for j in range(len(lon)):
-                if np.isnan(pr[0][i-1,j-1].values) or np.isnan(pr[1][i-1,j-1].values) or np.isnan(pr[2][i-1,j-1].values) or np.isnan(pr[3][i-1,j-1].values) or np.isnan(pr[4][i-1,j-1].values) or np.isnan(pr[5][i-1,j-1].values) or np.isnan(pr[6][i-1,j-1].values) or np.isnan(pr[7][i-1,j-1].values) or np.isnan(pr[8][i-1,j-1].values) or np.isnan(pr[9][i-1,j-1].values) or np.isnan(pr[10][i-1,j-1].values) or np.isnan(pr[11][i-1,j-1].values) or np.isnan(pr[12][i-1,j-1].values) or np.isnan(pr[13][i-1,j-1].values) or np.isnan(pr[14][i-1,j-1].values) or np.isnan(pr[15][i-1,j-1].values) or np.isnan(pr[16][i-1,j-1].values) or np.isnan(pr[17][i-1,j-1].values) or np.isnan(pr[18][i-1,j-1].values) or np.isnan(pr[19][i-1,j-1].values) or np.isnan(pr[20][i-1,j-1].values) or np.isnan(pr[21][i-1,j-1].values) or np.isnan(pr[22][i-1,j-1].values) or np.isnan(pr[23][i-1,j-1].values) or np.isnan(pr[24][i-1,j-1].values) or np.isnan(pr[25][i-1,j-1].values) or np.isnan(pr[26][i-1,j-1].values) or np.isnan(pr[27][i-1,j-1].values):
+                if np.isnan(pr[0][i-1,j-1].values) or np.isnan(pr[1][i-1,j-1].values) or np.isnan(pr[2][i-1,j-1].values) or np.isnan(pr[3][i-1,j-1].values) or np.isnan(pr[4][i-1,j-1].values) or np.isnan(pr[5][i-1,j-1].values) or np.isnan(pr[6][i-1,j-1].values) or np.isnan(pr[7][i-1,j-1].values) or np.isnan(pr[8][i-1,j-1].values) or np.isnan(pr[9][i-1,j-1].values) or np.isnan(pr[10][i-1,j-1].values) or np.isnan(pr[11][i-1,j-1].values) or np.isnan(pr[12][i-1,j-1].values) or np.isnan(pr[13][i-1,j-1].values) or np.isnan(pr[14][i-1,j-1].values) or np.isnan(pr[15][i-1,j-1].values) or np.isnan(pr[16][i-1,j-1].values) or np.isnan(pr[17][i-1,j-1].values) or np.isnan(pr[18][i-1,j-1].values) or np.isnan(pr[19][i-1,j-1].values) or np.isnan(pr[20][i-1,j-1].values) or np.isnan(pr[21][i-1,j-1].values) or np.isnan(pr[22][i-1,j-1].values) or np.isnan(pr[23][i-1,j-1].values) or np.isnan(pr[24][i-1,j-1].values) or np.isnan(pr[25][i-1,j-1].values) or np.isnan(pr[26][i-1,j-1].values):
                     a = pd.DataFrame({'a':[np.nan],'lat':[lat[i-1].values.tolist()],'lon':[lon[j-1].values.tolist()]})
                     Aij = pd.concat([Aij,a],axis=0)
                     b = pd.DataFrame({'b':[np.nan],'lat':[lat[i-1].values.tolist()],'lon':[lon[j-1].values.tolist()]})
