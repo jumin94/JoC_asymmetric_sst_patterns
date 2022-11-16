@@ -14,35 +14,30 @@ warnings.filterwarnings("ignore")
 
 #---------------------------------------------------LOAD DATA--------------------------------------------------------
 #Define path, model list and experiments
-ruta = '/datos/julia.mindlin/CMIP6_ensambles/preprocesados' #ruta a los datos 
-models = [
-    'ACCESS-CM2', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'CAMS-CSM1-0',
-    'CanESM5', 'CESM2_', 'CESM2-WACCM','CMCC-CM2-SR5','CNRM-CM6-1',
-    'CNRM-ESM2-1','EC-Earth3', 'FGOALS-g3', 'HadGEM3-GC31-LL','HadGEM3-GC31-MM',
-    'IITM-ESM','INM-CM4-8','INM-CM5-0','KACE-1-0-G',
-    'MIROC6','MIROC-ES2L', 'MPI-ESM1-2-HR', 'MPI-ESM1-2-LR',
-    'MRI-ESM2-0', 'NESM3', 'NorESM2-LM', 'NorESM2-MM', 'TaiESM1','UKESM1-0-LL'
-    ]
-scenarios = ['historical','ssp585']
-os.chdir(ruta)
+models = ['ACCESS1-0','ACCESS1-3','bcc-csm1-1','bcc-csm1-1-m','CanESM2','CCSM4','CMCC-CESM','CMCC-CM','CMCC-CMS','CNRM-CM5','CSIRO-Mk3-6-0','EC-EARTH','GFDL-CM3','GFDL-ESM2G','GFDL-ESM2M','HadGEM2-CC','inmcm4','IPSL-CM5A-LR','IPSL-CM5A-MR','IPSL-CM5B-LR','MIROC5','MIROC-ESM-CHEM','MIROC-ESM','MPI-ESM-LR','MPI-ESM-MR','MRI-CGCM3','NorESM1-M']
+
+experiments = ['historical','rcp85']
+
+path_data = '/storage/silver/acrcc/co157815/fromjasmin/cmip5'
+path_results = '/home/users/co157815/JoC_paper/JoC_results'
+os.chdir(path_data)
 os.getcwd()
 
 #Create dictionary with data files
-var = 'mon/tos'
-dato = od.cargo_todo(scenarios,models,ruta,var)
+var = 'tos'
+dato = od.cargo_todo(experiments,models,path_data,var)
 
 #Load remote driver change in each model (indices)
 #Open indices - los mismos de siempre
-path_results = '/home/julia.mindlin/Tesis/JoC_paper/JoC_results'
-gloW  = pd.read_csv(path_results+'/indices_CMIP6/GW_index_DJF.csv')
-gw_index = gloW.iloc[:,2].values
-ta = pd.read_csv(path_results+'/indices_CMIP6/TA_index_DJF.csv')
-vb = pd.read_csv(path_results+'/indices_CMIP6/VB_index_DJF.csv')
-sst_C_std = pd.read_csv(path_indices_DJF+'/indices_CMIP6/C_std_asym_index_DJF.csv')
-sst_E_std = pd.read_csv(path_indices_DJF+'/indices_CMIP6/E_std_asym_index_DJF.csv')
+gloW  = pd.read_csv(path_results+'/indices_CMIP5/GW_VB_index50_70.csv')
+gw_index = gloW.iloc[:,4].values
+ta = pd.read_csv(path_results+'/indices_CMIP5/TW_index.csv')
+vb = pd.read_csv(path_results+'/indices_CMIP5/VB_indexGWscaled50_70.csv')
+sst_C_std = pd.read_csv(path_results+'/indices_CMIP5/C_std_asym_index_DJF.csv')
+sst_E_std = pd.read_csv(path_results+'/indices_CMIP5/E_std_asym_index_DJF.csv')
 #Select values
-TA = ta.iloc[:,2].values
-VB = VB.iloc[:,2].values
+TA = ta.iloc[:,4].values
+VB = vb.iloc[:,5].values
 SST_C_std = sst_C_std.iloc[:,2].values
 SST_E_std = sst_E_std.iloc[:,2].values
 #--------------------------------------------------CALCULATIONS--------------------------------------------------
@@ -50,16 +45,16 @@ SST_E_std = sst_E_std.iloc[:,2].values
 reg = reg_am.across_models()
 var = 'tos'
 #Generate regression data
-reg.regression_data(dato,scenarios,models,gw_index,var)
+reg.regression_data(dato,experiments,models,gw_index,var)
 #Create folder to save data if necessary
 os.chdir(path_results)
 os.getcwd()
-os.makedirs('sensitivity_maps_CMIP6',exist_ok=True)
-os.chdir(path_results+'/sensitivity_maps_CMIP6')
+os.makedirs('sensitivity_maps_CMIP5',exist_ok=True)
+os.chdir(path_results+'/sensitivity_maps_CMIP5')
 os.getcwd()
 os.makedirs(var,exist_ok=True)
 #Perform regression
-path_maps = path_results+'/sensitivity_maps_CMIP6/'+var
+path_maps = path_results+'/sensitivity_maps_CMIP5/'+var
 indices = [TA,VB,SST_C_std,SST_E_std] 
 indices_names = ['TA','VB','C_index','E_index'] 
 reg.perform_regression(indices,indices_names,gw_index,path_maps)

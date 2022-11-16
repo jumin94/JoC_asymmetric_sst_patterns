@@ -45,4 +45,4 @@ os.getcwd()
 os.makedirs(var,exist_ok=True)
 #Save
 for m in range(len(models)):
-    reg.psl_change[m].to_netcdf(path_results+'/pr_changes_CMIP5'+'/pr_change_'+models[m]+ '1940-1969_2070-2099.nc')
+    reg.psl_change[m].to_netcdf(path_results+'/pr_changes_CMIP5'+'/pr_change_'+models[m]+'_1940-1969_2070-2099.nc')

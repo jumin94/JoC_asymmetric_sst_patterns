@@ -63,7 +63,9 @@ class across_models(object):
             
             seasonal_h = h.groupby('time.season').mean(dim='time')
             DJF_h = seasonal_h.sel(season='DJF')
-            h1DJF = DJF_h.sel(lat=slice(90,-90))
+            #Si se quiere reducir el dato, lo comento porque me interesa tener entero el mapa
+            #h1DJF = DJF_h.sel(lat=slice(90,-90))
+            h1DJF = DJF_h
             if levs == 'no':
                 a = 0
             else:
@@ -71,7 +73,9 @@ class across_models(object):
             h1DJF.attrs = h.attrs
             seasonal_r = rcp.groupby('time.season').mean(dim='time')
             DJF_r = seasonal_r.sel(season='DJF')
-            r1DJF = DJF_r.sel(lat=slice(90,-90))
+            r1DJF = DJF_r
+            #Si se quiere reducir el dato, lo comento porque me interesa tener entero el mapa
+            #r1DJF = DJF_r.sel(lat=slice(90,-90))
             if levs == 'no':
                 a = 0
             else:

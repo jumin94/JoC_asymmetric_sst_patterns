@@ -9,8 +9,8 @@ from sklearn.model_selection import train_test_split
 import statsmodels.api as sm
 import os, fnmatch
 import glob
-import csv2nc
-import metpy.calc as mpy
+import utilities.csv2nc
+#import metpy.calc as mpy
 
 
 #Across models regression class
